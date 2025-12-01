@@ -1,0 +1,72 @@
+{
+  "menu": [
+    {
+      "url": "/admin/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons mdi mdi-view-dashboard-outline",
+      "slug": "admin.dashboard"
+    },
+    {
+      "url": "/admin/users",
+      "name": "All Users",
+      "icon": "menu-icon tf-icons mdi mdi-account-multiple-outline",
+      "slug": "admin.users.index"
+    },
+    {
+      "url": "/admin/categories",
+      "name": "Categories",
+      "icon": "menu-icon tf-icons mdi mdi-shape-outline",
+      "slug": "admin.categories.index"
+    },
+    {
+      "url": "/admin/service_categories",
+      "name": "Service Types",
+      "icon": "menu-icon tf-icons mdi mdi-shape-outline",
+      "slug": "admin.service_categories.index"
+    },
+
+    {
+      "url": "/admin/products/pending",
+      "name": "Products",
+      "icon": "menu-icon tf-icons mdi mdi-clock-check-outline",
+      "slug": "admin.products.pending"
+    },
+    {
+      "url": "/admin/services/pending",
+      "name": "Services",
+      "icon": "menu-icon tf-icons mdi mdi-wrench-clock",
+      "slug": "admin.services.pending"
+    },
+    {
+      "url": "/admin/banners",
+      "name": "Banners",
+      "icon": "menu-icon tf-icons mdi mdi-image-area",
+      "slug": "admin.banners.index"
+    },
+    {
+      "url": "/admin/banners",
+      "name": "Offers",
+      "icon": "menu-icon tf-icons mdi mdi-image-area",
+      "slug": "admin.banners.index"
+    },
+     {
+      "url": "/admin/banners",
+      "name": "Discounts",
+      "icon": "menu-icon tf-icons mdi mdi-image-area",
+      "slug": "admin.banners.index"
+    },
+     {
+      "url": "/admin/banners",
+      "name": "Notifications",
+      "icon": "menu-icon tf-icons mdi mdi-image-area",
+      "slug": "admin.banners.index"
+    },
+
+    {
+      "url": "/logout",
+      "name": "Logout",
+      "icon": "menu-icon tf-icons mdi mdi-logout",
+      "slug": "logout"
+    }
+  ]
+}

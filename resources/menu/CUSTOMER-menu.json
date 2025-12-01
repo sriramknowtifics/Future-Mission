@@ -1,0 +1,34 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Home",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "home"
+    },
+    {
+      "url": "/account/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons mdi mdi-view-dashboard-outline",
+      "slug": "account.dashboard"
+    },
+    {
+      "url": "/account/orders",
+      "name": "My Orders",
+      "icon": "menu-icon tf-icons mdi mdi-cart-outline",
+      "slug": "account.orders"
+    },
+    {
+      "url": "/profile",
+      "name": "Profile",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "profile.show"
+    },
+    {
+      "url": "/logout",
+      "name": "Logout",
+      "icon": "menu-icon tf-icons mdi mdi-logout",
+      "slug": "logout"
+    }
+  ]
+}

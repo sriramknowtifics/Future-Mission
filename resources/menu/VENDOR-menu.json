@@ -1,0 +1,46 @@
+{
+  "menu": [
+    {
+      "url": "/vendor/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons mdi mdi-view-dashboard-outline",
+      "slug": "vendor.dashboard"
+    },
+    {
+      "url": "/vendor/products",
+      "name": "My Products",
+      "icon": "menu-icon tf-icons mdi mdi-package-variant",
+      "slug": "vendor.products.index"
+    },
+    {
+      "url": "/vendor/services",
+      "name": "My Services",
+      "icon": "menu-icon tf-icons mdi mdi-wrench-outline",
+      "slug": "vendor.services.index"
+    },
+    {
+      "url": "/vendor/products/create",
+      "name": "Add Product",
+      "icon": "menu-icon tf-icons mdi mdi-plus-box",
+      "slug": "vendor.products.create"
+    },
+    {
+      "url": "/vendor/services/create",
+      "name": "Add Service",
+      "icon": "menu-icon tf-icons mdi mdi-plus-circle-outline",
+      "slug": "vendor.services.create"
+    },
+    {
+      "url": "/profile",
+      "name": "Profile",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "profile.show"
+    },
+    {
+      "url": "/logout",
+      "name": "Logout",
+      "icon": "menu-icon tf-icons mdi mdi-logout",
+      "slug": "logout"
+    }
+  ]
+}

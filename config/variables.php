@@ -1,0 +1,32 @@
+<?php
+// Variables
+return [
+  "creatorName" => "Knowtifics",
+  "creatorUrl" => "https://knowtifics.com",
+  "templateName" => "Future Mission",
+  "templateSuffix" => "Online Store",
+  "templateVersion" => "3.0.0",
+  "templateFree" => false,
+  "templateDescription" => "Construction, Home Applience and Electronics Online Store",
+  "templateKeyword" => "Fmission, online store, ecommerce, electronics store, appliances store, construction store",
+  "licenseUrl" => "https://themeforest.net/licenses/standard",
+  "livePreview" => "https://demos.knowtifics.com/vuexy-html-laravel-admin-template/demo-1/",
+  "productPage" => "https://themeforest.net/item/vuexy-vuejs-html-laravel-admin-dashboard-template/23328599",
+  "support" => "https://knowtifics.ticksy.com/",
+  "moreThemes" => "https://themeforest.net/user/knowtifics/portfolio",
+  "ogTitle" => "Vuexy bootstrap Dashboard by knowtifics",
+  "ogImage" => "https://knowtifics.com/wp-content/uploads/2023/06/vuexy-hero-image.png",
+  "ogType" => "product",
+  "documentation" => "https://demos.knowtifics.com/vuexy-html-admin-template/documentation",
+  "generator" => "",
+  "changelog" => "https://demos.knowtifics.com/vuexy/changelog.html",
+  "repository" => "https://github.com/knowtifics/vuexy-html-laravel-admin-template",
+  "gitRepo" => "vuexy-html-laravel-admin-template",
+  "gitRepoAccess" => "https://tools.knowtifics.com/github/github-access",
+  "githubFreeUrl" => "https://github.com/knowtifics",
+  "facebookUrl" => "https://www.facebook.com/knowtificss/",
+  "twitterUrl" => "https://x.com/knowtificss",
+  "githubUrl" => "https://github.com/knowtifics",
+  "dribbbleUrl" => "https://dribbble.com/knowtifics",
+  "instagramUrl" => "https://www.instagram.com/knowtificss/"
+];
