@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -13,24 +15,42 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'order_number',
-        'status', // pending, packed, shipped, delivered, cancelled, returned
+        'tracking_id',
+
+        'status',
+        
         'shipping_address',
         'billing_address',
+
+        'subtotal_amount',
         'shipping_cost',
         'tax_amount',
         'total_amount',
-        'payment_method', // cod, upi, card, wallet
-        'payment_status', // pending, paid, failed, refunded
-        'delivery_user_id', // assigned delivery partner (nullable)
+
+        'payment_method',
+        'payment_status',
+        'payment_reference',
+
+        'delivery_user_id',
+        'notes',
+        'placed_at',
     ];
 
     protected $casts = [
-        'shipping_cost' => 'decimal:2',
-        'tax_amount' => 'decimal:2',
-        'total_amount' => 'decimal:2',
+        'shipping_address' => 'array',
+        'billing_address'  => 'array',
+
+        'subtotal_amount' => 'decimal:2',
+        'shipping_cost'   => 'decimal:2',
+        'tax_amount'      => 'decimal:2',
+        'total_amount'    => 'decimal:2',
+
+        'placed_at' => 'datetime',
     ];
 
-    /* Relationships */
+    /* -----------------------
+       RELATIONSHIPS
+    ------------------------*/
 
     public function user()
     {
@@ -39,16 +59,18 @@ class Order extends Model
 
     public function items()
     {
+        Log::info("Reaching here");
         return $this->hasMany(OrderItem::class);
-    }
-
-    public function deliveryAssignment()
-    {
-        return $this->hasOne(DeliveryAssignment::class);
     }
 
     public function deliveryUser()
     {
         return $this->belongsTo(User::class, 'delivery_user_id');
+    }
+
+    // If you have delivery assignment table
+    public function deliveryAssignment()
+    {
+        return $this->hasOne(DeliveryAssignment::class);
     }
 }

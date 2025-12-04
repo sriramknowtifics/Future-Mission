@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Brand;
 use Illuminate\Http\Request;
+
 
 class ShopController extends Controller
 {

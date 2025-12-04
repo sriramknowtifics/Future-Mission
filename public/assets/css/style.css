@@ -28920,5 +28920,335 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 [dir='rtl'] .rts-ltr-rtl-setting-button-area.active {
   right: 0;
 }
+/* ============================================================
+   PREMIUM FOOTER – CLEAN, RESPONSIVE, PROFESSIONAL VERSION
+   ============================================================ */
 
-/*# sourceMappingURL=../maps/style.css.map */
+.premium-footer {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 60px 0 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* -----------------------------
+   FOOTER COLUMNS
+------------------------------ */
+.premium-footer .footer-col {
+    margin-bottom: 40px;
+}
+
+.premium-footer .footer-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+/* Limit ABOUT section width (prevents misalignment) */
+.premium-footer .footer-col:first-child {
+    max-width: 330px;
+}
+
+/* Newsletter column max width */
+.premium-footer .footer-col:last-child {
+    max-width: 320px;
+}
+
+/* -----------------------------
+   DESCRIPTION TEXT
+------------------------------ */
+.footer-desc {
+    color: #cbd5e1;
+    margin-bottom: 18px;
+}
+
+/* -----------------------------
+   CONTACT SECTION
+------------------------------ */
+.footer-contact p {
+    margin: 6px 0;
+    color: #cbd5e1;
+}
+
+.footer-contact i {
+    color: #ffae00;
+    margin-right: 8px;
+}
+
+/* -----------------------------
+   LINK LISTS
+------------------------------ */
+.footer-links {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.footer-links a:hover {
+    color: #ffae00;
+}
+
+/* -----------------------------
+   NEWSLETTER
+------------------------------ */
+.newsletter-form {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+}
+
+.newsletter-form button {
+    background: #ffae00;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.newsletter-form button:hover {
+    background: #ff9500;
+}
+
+/* -----------------------------
+   SOCIAL ICONS
+------------------------------ */
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.footer-social a {
+    font-size: 17px;
+    color: #ffffff;
+    transition: 0.2s;
+}
+
+.footer-social a:hover {
+    color: #ffae00;
+}
+
+/* -----------------------------
+   FOOTER BOTTOM BAR
+------------------------------ */
+.footer-bottom {
+    border-top: 1px solid #1e293b;
+    margin-top: 40px;
+    padding: 18px 0;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* -----------------------------
+   RESPONSIVENESS FIXES
+------------------------------ */
+@media (max-width: 992px) {
+    .premium-footer .footer-col {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .premium-footer {
+        text-align: left;
+    }
+
+    .footer-social {
+        justify-content: flex-start;
+    }
+
+    .newsletter-form {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 576px) {
+    .premium-footer {
+        text-align: left;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+        border-radius: 10px !important;
+    }
+
+    .newsletter-form button {
+        margin-top: 8px;
+    }
+}/* ============================================================
+   CONTACT PAGE — FULL PREMIUM DESIGN (COMPLETE)
+============================================================ */
+
+/* ----------------------------
+   HERO SECTION
+----------------------------- */
+.contact-hero {
+    background: linear-gradient(to right, #ffa600, #ff7a00);
+    padding: 70px 0;
+    text-align: center;
+    color: #fff;
+}
+
+.contact-hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.contact-hero p {
+    font-size: 18px;
+    opacity: 0.95;
+}
+
+/* ----------------------------
+   SECTION WRAPPER
+----------------------------- */
+.contact-wrapper {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.shadow-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+/* ----------------------------
+   FORM
+----------------------------- */
+.section-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.contact-box .form-group {
+    margin-bottom: 18px;
+}
+
+.contact-box label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #334155;
+}
+
+.contact-box input,
+.contact-box textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+/* ----------------------------
+   SUBMIT BUTTON (Premium)
+----------------------------- */
+.btn-submit {
+    background: linear-gradient(135deg, #ffa200, #ff6300);
+    color: #fff;
+    font-weight: 800;
+    width: 100%;
+    padding: 16px;
+    font-size: 17px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(255, 122, 0, 0.25);
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #ff8a00, #ff4f00);
+    transform: translateY(-2px);
+}
+
+/* ----------------------------
+   CONTACT INFO
+----------------------------- */
+.contact-info .desc {
+    margin-bottom: 20px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.info-item i {
+    color: #ff9500;
+    font-size: 22px;
+    margin-top: 4px;
+}
+
+.hours-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.hours-list li {
+    margin-bottom: 6px;
+    color: #475569;
+    font-size: 15px;
+}
+
+/* ----------------------------
+   MAP
+----------------------------- */
+.map-box {
+    margin-top: 50px;
+}
+
+.map-holder iframe {
+    border-radius: 14px;
+    border: none;
+}
+
+/* ----------------------------
+   RESPONSIVE DESIGN
+----------------------------- */
+@media (max-width: 992px) {
+    .contact-hero h1 { font-size: 32px; }
+}
+
+@media (max-width: 768px) {
+    .contact-hero h1 { font-size: 28px; }
+    .shadow-box { padding: 22px; }
+}

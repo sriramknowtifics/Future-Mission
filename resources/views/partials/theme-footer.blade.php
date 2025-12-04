@@ -1,111 +1,90 @@
-<footer>
-  <div class="rts-footer-area pt--80 bg_blue-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="footer-main-content-wrapper pb--70">
-                    <!-- single footer area wrapper -->
-                    <div class="single-footer-wized">
-                        <h3 class="footer-title">About Company</h3>
-                        <div class="call-area">
-                            <div class="icon">
-                                <i class="fa-solid fa-phone-rotary"></i>
-                            </div>
-                            <div class="info">
-                                <span>Have Question? Call Us 24/7</span>
-                                <a href="#" class="number">+258 3692 2569</a>
-                            </div>
-                        </div>
-                        <div class="opening-hour">
-                            <div class="single">
-                                <p>Monday - Friday: <span>8:00am - 6:00pm</span></p>
-                            </div>
-                            <div class="single">
-                                <p>Saturday: <span>8:00am - 6:00pm</span></p>
-                            </div>
-                            <div class="single">
-                                <p>Sunday: <span>Service Close</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single footer area wrapper -->
-                    <!-- single footer area wrapper -->
-                    <div class="single-footer-wized">
-                        <h3 class="footer-title">Our Stores</h3>
-                        <div class="footer-nav">
-                            <ul>
-                                <li><a href="#">Delivery Information</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Support Center</a></li>
-                                <li><a href="#">Careers</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- single footer area wrapper -->
-                    <!-- single footer area wrapper -->
-                    <div class="single-footer-wized">
-                        <h3 class="footer-title">Shop Categories</h3>
-                        <div class="footer-nav">
-                            <ul>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Nest Stories</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- single footer area wrapper -->
-                    <!-- single footer area wrapper -->
-                    <div class="single-footer-wized">
-                        <h3 class="footer-title">Useful Links</h3>
-                        <div class="footer-nav">
-                            <ul>
-                                <li><a href="#">Cancellation & Returns</a></li>
-                                <li><a href="#">Report Infringement</a></li>
-                                <li><a href="#">Payments</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">FAQ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- single footer area wrapper -->
-                    <!-- single footer area wrapper -->
-                    <div class="single-footer-wized">
-                        <h3 class="footer-title">Our Newsletter</h3>
-                        <p class="disc-news-letter">
-                            Subscribe to the mailing list to receive updates one <br> the new arrivals and other discounts
-                        </p>
-                        <form class="footersubscribe-form" action="#">
-                            <input type="email" placeholder="Your email address" required>
-                            <button class="rts-btn btn-primary">Subscribe</button>
-                        </form>
+<footer class="premium-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row footer-row">
 
-                        <p class="dsic">
-                            I would like to receive news and special offer
+                <!-- ABOUT -->
+                <div class="col-lg-3 col-md-6 col-12 footer-col">
+                    <h4 class="footer-title">About Future Mission</h4>
+                    <p class="footer-desc">
+                        Future Mission is your trusted online marketplace delivering quality
+                        products, fast shipping, and reliable customer support.
+                        Shop confidently — satisfaction guaranteed.
+                    </p>
+
+                    <div class="footer-contact">
+                        <p><i class="fa-solid fa-phone"></i> +973 35549994</p>
+                        <p><i class="fa-solid fa-envelope"></i> Info@fmce.bh</p>
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            Office #101, First Floor, Building 1273, Road 1223, Block 1012,
+                            Al Hamala – 37638, BAHRAIN
                         </p>
                     </div>
-                    <!-- single footer area wrapper -->
                 </div>
-                <div class="social-and-payment-area-wrapper">
-                    <div class="social-one-wrapper">
-                        <span>Follow Us:</span>
-                        <ul>
-                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="payment-access">
-                        <span>Payment Accepts:</span>
-                        <img src="assets/images/payment/06.png" alt="">
+
+                <!-- SHOP -->
+                <div class="col-lg-2 col-md-6 col-6 footer-col">
+                    <h4 class="footer-title">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ route('shop.index',['category'=>1]) }}">Appliances</a></li>
+                        <li><a href="{{ route('shop.index',['category'=>15]) }}">Electronics</a></li>
+                        <li><a href="{{ route('shop.index',['category'=>3]) }}">Lighting</a></li>
+                        <li><a href="{{ route('shop.index',['category'=>11]) }}">Power Storage</a></li>
+                      
+                    </ul>
+                </div>
+
+                <!-- CUSTOMER CARE -->
+                <div class="col-lg-2 col-md-6 col-6 footer-col">
+                    <h4 class="footer-title">Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="{{route('faq')}}">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <!-- USEFUL LINKS -->
+                <div class="col-lg-2 col-md-6 col-6 footer-col">
+                    <h4 class="footer-title">Useful Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                        <li><a href="{{ route('register.vendor') }}">Become a Seller</a></li>
+                    </ul>
+                </div>
+
+                <!-- NEWSLETTER -->
+                <div class="col-lg-3 col-md-6 col-12 footer-col">
+                    <h4 class="footer-title">Stay Updated</h4>
+                    <p class="footer-desc">
+                        Join our newsletter to receive exclusive deals & updates.
+                    </p>
+
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-bottom">
+        <div class="container text-center">
+            <p>© {{ date('Y') }} Future Mission. All Rights Reserved.</p>
+        </div>
     </div>
 </footer>

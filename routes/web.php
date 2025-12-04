@@ -29,6 +29,7 @@ use App\Http\Controllers\Vendor\ServiceController;
 use App\Http\Controllers\Finance\FinanceController;
 
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\WishlistController;
 
 use App\Http\Controllers\Delivery\DeliveryController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -68,6 +69,9 @@ Route::get('/service_orders/{order}', [ServiceOrderController::class, 'show'])
 Route::post('/service_orders/{order}', [ServiceOrderController::class, 'destroy'])
 ->name('service.orders.destroy');
 
+//FAQ
+Route::view('/faq', 'faq.index')->name('faq');
+
 
 // CMS Pages
 Route::view('/about', 'about')->name('about');
@@ -81,7 +85,6 @@ Route::view('/wishlist', 'wishlist')->name('wishlist.index');
 // Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 // Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 // Route::post('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
-use App\Http\Controllers\WishlistController;
 
 // Route::middleware(['auth'])->group(function () {
 
@@ -112,9 +115,17 @@ Route::get('/categories/{id}/subcategories', function ($id) {
 | CHECKOUT (AUTH REQUIRED)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'verified'])->group(function () {
-  Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-  Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
+
+Route::middleware(['auth', 'verified', 'role:customer'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+    // Save a new address from checkout
+    Route::post('/checkout/address', [CheckoutController::class, 'storeAddress'])
+         ->name('checkout.address.store');
+
+    // Place order
+    Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])
+         ->name('checkout.place'); // keep this name and use it in blade
 });
 
 
@@ -153,19 +164,60 @@ Route::middleware(['auth', 'verified', 'role:customer|vendor|admin'])
 
 */
 Route::middleware(['auth', 'verified', 'role:customer'])
-  ->prefix('account')
-  ->name('account.')
-  ->group(function () {
+    ->prefix('account')
+    ->name('account.')
+    ->group(function () {
 
-    Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard');
-    Route::post('/update', [AccountController::class, 'updateAccount'])
-    ->name('update');
+        /* ============================
+            DASHBOARD & ACCOUNT
+        ============================ */
+        Route::get('/dashboard', [AccountController::class, 'index'])
+            ->name('dashboard');
 
-    Route::get('/orders/{order}', [AccountController::class, 'showOrder'])->name('orders.show');
-    Route::post('/orders/{order}/cancel', [AccountController::class, 'cancelOrder'])->name('orders.cancel');
+        Route::post('/update', [AccountController::class, 'updateAccount'])
+            ->name('update');
 
 
-  });
+        /* ============================
+            ADDRESS CRUD
+        ============================ */
+        Route::post('/address', [AccountController::class, 'addressStore'])
+            ->name('address.store');
+
+        Route::put('/address/{id}', [AccountController::class, 'addressUpdate'])
+            ->name('address.update');
+
+        Route::delete('/address/{id}', [AccountController::class, 'addressDestroy'])
+            ->name('address.delete');
+
+        Route::post('/address/{id}/default', [AccountController::class, 'addressMakeDefault'])
+            ->name('address.default');
+
+
+
+        /* ============================
+            ORDERS (PRODUCT ORDERS)
+        ============================ */
+
+        // List all customer orders
+        Route::get('/orders', [AccountController::class, 'orderList'])
+            ->name('orders.index');
+
+        // Show single order
+        Route::get('/orders/{id}', [AccountController::class, 'showOrderDetails'])
+            ->name('orders.show');
+
+        // Show order items (optional separate page)
+        Route::get('/orders/{id}/items', [AccountController::class, 'orderItems'])
+            ->name('orders.items');
+
+        // Cancel an order
+        Route::post('/orders/{order}/cancel', [AccountController::class, 'cancelOrder'])
+            ->name('orders.cancel');
+
+    });
+
+
 
 
 /*

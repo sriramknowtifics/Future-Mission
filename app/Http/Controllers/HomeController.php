@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Banner;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Service;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -52,11 +53,15 @@ class HomeController extends Controller
                 ->get();
 
             // 10 SERVICE type rows
-            $featuredServices = (clone $baseQuery)
-                ->where('type', 'service')
-                ->orderByDesc('created_at')
-                ->limit(10)
-                ->get();
+            // $featuredServices = (clone $baseQuery)
+            //     ->where('type', 'service')
+            //     ->orderByDesc('created_at')
+            //     ->limit(10)
+            //     ->get();
+            $featuredServices = Service::query()
+            ->where('approval_status', 'approved')
+            ->where('is_active', true)
+            ->with(['images', 'category'])->get();
         }
 
         return view('home', compact(

@@ -1,9 +1,14 @@
 @php use Illuminate\Support\Str; @endphp
 @extends('layouts.theme')
+
 @section('title', 'Services')
 @section('body_class', 'bg-light')
 
 @section('content')
+
+{{-- ===========================
+    BREADCRUMB
+============================ --}}
 <div class="bg-white border-bottom">
     <div class="container py-3">
         <nav aria-label="breadcrumb">
@@ -18,71 +23,108 @@
 <div class="container py-4">
     <div class="row g-4">
 
-        {{-- SIDEBAR --}}
-        <aside class="col-lg-3 order-lg-1 order-2">
-            {{-- Price Filter --}}
-            <div class="card mb-4 shadow-sm">
+        {{-- =======================================
+            PREMIUM SIDEBAR (UPDATED)
+        ======================================= --}}
+        <aside class="col-lg-3">
+
+            {{-- PRICE FILTER --}}
+            <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3">Price Filter</h6>
+                    <h5 class="fw-bold mb-3">Price Filter</h5>
+
                     <form action="{{ route('service.index') }}" method="GET">
-                        <div class="mb-2">
-                            <label class="form-label small">Min (BHD)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">BHD</span>
-                                <input name="min_price" value="{{ request('min_price', '') }}" class="form-control form-control-sm" type="number" min="0" step="0.01">
-                            </div>
-                        </div>
+
+                        {{-- MIN PRICE --}}
                         <div class="mb-3">
-                            <label class="form-label small">Max (BHD)</label>
+                            <label class="form-label">Min Price</label>
                             <div class="input-group">
                                 <span class="input-group-text">BHD</span>
-                                <input name="max_price" value="{{ request('max_price', '') }}" class="form-control form-control-sm" type="number" min="0" step="0.01">
+                                <input type="number" name="min_price"
+                                       value="{{ request('min_price', 0) }}"
+                                       class="form-control">
                             </div>
                         </div>
-                        <button class="btn btn-sm w-100 btn-cta">Apply</button>
+
+                        {{-- MAX PRICE --}}
+                        <div class="mb-3">
+                            <label class="form-label">Max Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">BHD</span>
+                                <input type="number" name="max_price"
+                                       value="{{ request('max_price', 10000) }}"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary-custom w-100">Apply</button>
                     </form>
                 </div>
             </div>
 
-            {{-- Category small round icons (style C) --}}
-            <div class="card mb-4 shadow-sm">
+            {{-- SERVICE CATEGORIES — SHOP STYLE UI --}}
+            <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3">Service Categories</h6>
-                    <div class="d-flex flex-wrap gap-2">
+                    <h5 class="fw-bold mb-3">Service Categories</h5>
+
+                    <div class="row g-3">
                         @foreach($categories as $cat)
-                        <a href="{{ route('service.index', ['service_category' => $cat->id]) }}" class="text-center text-decoration-none category-pill">
-                            <div class="cat-icon d-flex align-items-center justify-content-center mb-1">
+                        <div class="col-4">
+                            <a href="{{ route('service.index',['service_category'=>$cat->id]) }}"
+                               class="text-center d-block p-2 bg-light rounded hover-shadow category-box">
+
                                 @if($cat->icon)
-                                    <img src="{{ asset('storage/'.$cat->icon) }}" alt="{{ $cat->name }}" class="img-fluid" style="max-height:34px;">
+                                    <img src="{{ asset('storage/'.$cat->icon) }}"
+                                         class="img-fluid mb-1"
+                                         style="height:40px;">
                                 @else
-                                    <i class="fa fa-briefcase"></i>
+                                    <i class="fa fa-briefcase fa-2x text-secondary mb-1"></i>
                                 @endif
-                            </div>
-                            <div class="small text-dark">{{ Str::limit($cat->name, 12) }}</div>
-                        </a>
+
+                                <div class="small text-dark fw-semibold">
+                                    {{ Str::limit($cat->name,12) }}
+                                </div>
+                            </a>
+                        </div>
                         @endforeach
                     </div>
+
                 </div>
             </div>
 
-            {{-- Top vendors (optional) --}}
-            <div class="card mb-4 shadow-sm">
+            {{-- TOP VENDORS — PREMIUM LIST STYLE --}}
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3">Top Vendors</h6>
-                    <ul class="list-unstyled mb-0">
-                        @foreach($topVendors ?? [] as $vendor)
+                    <h5 class="fw-bold mb-3">Top Vendors</h5>
+                    <ul class="list-unstyled m-0 p-0">
+
+                        @forelse($topVendors ?? [] as $vendor)
                         <li class="mb-2">
-                            <a href="{{ route('vendor.show', $vendor->id) }}" class="small text-dark">
+                            <a href="{{ route('vendor.show', $vendor->id) }}"
+                               class="text-dark small fw-semibold d-flex align-items-center">
+
+                                <div class="me-2 bg-light rounded-circle d-flex align-items-center justify-content-center"
+                                     style="width:34px;height:34px;">
+                                    <span class="fw-bold text-primary">{{ strtoupper(substr($vendor->shop_name ?? 'V', 0, 1)) }}</span>
+                                </div>
+
                                 {{ $vendor->shop_name ?? $vendor->user->name }}
                             </a>
                         </li>
-                        @endforeach
+                        @empty
+                        <li class="text-muted small">No vendors found.</li>
+                        @endforelse
+
                     </ul>
                 </div>
             </div>
+
         </aside>
 
-        {{-- MAIN --}}
+
+        {{-- =========================================================
+            MAIN SERVICE GRID (UNCHANGED)
+        ========================================================= --}}
         <div class="col-lg-9 order-lg-2 order-1">
 
             {{-- header bar --}}
@@ -221,17 +263,26 @@
     </div>
 </div>
 
-@endsection
 
+
+{{-- ===========================
+    PREMIUM SIDEBAR CSS
+=========================== --}}
 @push('styles')
 <style>
 :root{
   --color-primary: #FFAB1D;
-  --color-primary-2: #FF9A00;
+  --color-secondary: #1F1F25;
+    --color-primary-2: #FF9A00;
   --color-heading: #2C3C28;
-  --card-radius: 14px;
+    --card-radius: 14px;
+  --radius-lg: 16px;
+
   --shadow-sm: 0 6px 22px rgba(30,30,30,0.06);
+  --shadow-md: 0 8px 25px rgba(0,0,0,0.1);
 }
+
+
 
 /* page bg */
 body { background: #f7f8fb !important; }
@@ -295,51 +346,57 @@ body { background: #f7f8fb !important; }
     font-weight: 700;
 }
 
-/* category small round icons (style C) */
-.category-pill {
-    width: 72px;
-    text-align: center;
-    color: #333;
+/* Category & Filter Inputs */
+.input-group-text {
+    background: #eef1f5 !important;
+    border: none !important;
+    font-weight: 700;
 }
-.cat-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
+
+.form-control {
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 0.15rem rgba(255,171,29,0.25);
+}
+
+/* Apply Button */
+.btn-primary-custom {
+    background: linear-gradient(135deg, #FFAB1D, #FF9A00);
+    padding: 10px 0;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 700;
+    border: none;
+}
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Category Box */
+.category-box {
+    transition: .25s;
+    border-radius: 14px;
     background: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 18px rgba(40,40,40,0.06);
-    transition: transform .18s ease, box-shadow .18s ease;
+    border: 1px solid #eee;
 }
-.category-pill:hover .cat-icon { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(40,40,40,0.12); }
-
-/* small screens tweaks */
-@media (max-width: 767.98px){
-    .category-pill { width: 60px; }
-    .cat-icon { width: 48px; height: 48px; }
-    .card-img-top { height: 180px !important; object-fit: cover; }
+.category-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
 }
 
-/* subtle helper */
-.small.text-muted { color: #6c7780; }
-
-/* price currency appearance */
-.price-bhd, .text-price { letter-spacing: 0.2px; }
-
-/* accessibility: focus outlines */
-a:focus, button:focus {
-    outline: 3px solid rgba(255,171,29,0.18);
-    outline-offset: 2px;
+/* Vendor List */
+.card ul li a:hover {
+    color: var(--color-primary) !important;
 }
+
 </style>
 @endpush
 
-@push('scripts')
-<script>
-    // optional: support small JS interactions in future (quick view / wishlist)
-    document.addEventListener('click', function(e){
-        // placeholder for progressive enhancement
-    }, false);
-</script>
-@endpush
+@endsection

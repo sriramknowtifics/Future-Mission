@@ -77,7 +77,7 @@
 
         <hr class="my-4">
 
-        {{-- ADDRESS SECTION --}}
+        {{-- ADDRESS SECTION ,This below address section is not used
         <h5 class="fw-bold mb-3">Address Information</h5>
 
         <div class="row g-4">
@@ -113,9 +113,9 @@
 
         </div>
 
-        <hr class="my-4">
+        <hr class="my-4">--}}
 
-        {{-- PASSWORD SECTION --}}
+        {{-- PASSWORD SECTION ,This below is commented later will update this
         <h5 class="fw-bold mb-3">Change Password</h5>
 
         <div class="row g-4">
@@ -128,7 +128,7 @@
                 <label class="form-label fw-bold">Confirm Password</label>
                 <input type="password" name="password_confirmation" class="form-control premium-input">
             </div>
-        </div>
+        </div>--}}
 
         <button class="premium-btn-primary mt-4 w-100">
             Save Changes

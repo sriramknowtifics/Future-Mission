@@ -3,158 +3,255 @@
 
 @section('content')
 
+{{-- ===========================
+    BREADCRUMB
+=========================== --}}
 <div class="rts-navigation-area-breadcrumb">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="navigator-breadcrumb-wrapper">
-                    <a href="index.html">Home</a>
-                    <i class="fa-regular fa-chevron-right"></i>
-                    <a class="#" href="index.html">Shop</a>
-                    <i class="fa-regular fa-chevron-right"></i>
-                    <a class="current" href="index.html">Checkout</a>
-                </div>
-            </div>
+        <div class="navigator-breadcrumb-wrapper">
+            <a href="{{ url('/') }}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="{{ route('shop.index') }}">Shop</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="current">Checkout</span>
         </div>
     </div>
 </div>
 
-<div class="section-seperator">
-    <div class="container">
-        <hr class="section-seperator">
-    </div>
-</div>
-<div class="checkout-area rts-section-gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 pr--40 pr_md--5 pr_sm--5 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2 mt_md--30 mt_sm--30">
+<div class="container py-5 checkout-container">
 
-                    <div class="rts-billing-details-area">
-                        <h3 class="title">Billing Details</h3>
-                        <form action="#">
-                            <div class="single-input">
-                                <label for="email">Email Address*</label>
-                                <input id="email" type="text" required>
-                            </div>
-                            <div class="half-input-wrapper">
-                                <div class="single-input">
-                                    <label for="f-name">First Name*</label>
-                                    <input id="f-name" type="text" required>
-                                </div>
-                                <div class="single-input">
-                                    <label for="l-name">Last Name*</label>
-                                    <input id="l-name" type="text">
-                                </div>
-                            </div>
-                            <div class="single-input">
-                                <label for="comp">Company Name (Optional)*</label>
-                                <input id="comp" type="text">
-                            </div>
-                            <div class="single-input">
-                                <label for="country">Country / Region*</label>
-                                <input id="country" type="text">
-                            </div>
-                            <div class="single-input">
-                                <label for="street">Street Address*</label>
-                                <input id="street" type="text" required>
-                            </div>
-                            <div class="single-input">
-                                <label for="city">Town / City*</label>
-                                <input id="city" type="text">
-                            </div>
-                            <div class="single-input">
-                                <label for="state">State*</label>
-                                <input id="state" type="text">
-                            </div>
-                            <div class="single-input">
-                                <label for="zip">Zip Code*</label>
-                                <input id="zip" type="text" required>
-                            </div>
-                            <div class="single-input">
-                                <label for="phone">Phone*</label>
-                                <input id="phone" type="text">
-                            </div>
-                            <div class="single-input">
-                                <label for="ordernotes">Order Notes*</label>
-                                <textarea id="ordernotes"></textarea>
-                            </div>
-                            <button class="rts-btn btn-primary">Update Cart</button>
-                        </form>
+    <div class="row g-4">
+
+        {{-- =============================
+            LEFT COLUMN — ADDRESS + PAYMENT
+        ============================== --}}
+        <div class="col-lg-8">
+
+            {{-- =============================
+                 ADDRESS SECTION
+            ============================== --}}
+            <div class="premium-card mb-4">
+                <h4 class="premium-title mb-3">Shipping Address</h4>
+
+                {{-- If user has NO addresses --}}
+                @if($addresses->isEmpty())
+
+                    <div class="alert alert-info">
+                        You don’t have any saved address. Add one to continue.
                     </div>
-                </div>
-                <div class="col-lg-4 order-1 order-xl-2 order-lg-1 order-md-1 order-sm-1">
-                    <h3 class="title-checkout">Your Order</h3>
-                    <div class="right-card-sidebar-checkout">
-                        <div class="top-wrapper">
-                            <div class="product">
-                                Products
+
+                    @include('checkout.partials.add_address_form')
+
+                @else
+
+                    {{-- EXISTING ADDRESSES --}}
+                    <div class="row g-3 mb-3">
+
+                        @foreach($addresses as $addr)
+                        <label class="col-md-6">
+                            <input type="radio"
+                                   name="address_id"
+                                   form="placeOrderForm"
+                                   value="{{ $addr->id }}"
+                                   class="address-radio"
+                                   @checked($loop->first) hidden>
+
+                            <div class="address-card">
+                                <div class="address-type">{{ ucfirst($addr->type) }}</div>
+                                <div class="address-body">
+                                    {{ $addr->address_line }} <br>
+                                    {{ $addr->city }}, {{ $addr->state }} <br>
+                                    {{ $addr->country }} – {{ $addr->zip_code }} <br>
+                                    Phone: {{ $addr->phone }}
+                                </div>
                             </div>
-                            <div class="price">
-                                Price
-                            </div>
-                        </div>
-                        @foreach($cart as $item)
-                        <div class="single-shop-list">
-                            <div class="left-area">
-                                <a href="#" class="thumbnail">
-                                    <img src="assets/images/shop/04.png" alt="">
-                                </a>
-                                <a href="#" class="title">
-                                   {{ $item['name'] }}
-                                </a>
-                            </div>
-                            <span class="price">₹{{ number_format($item['price'],2) }}</span>
-                        </div>
+                        </label>
                         @endforeach
-                        <div class="cottom-cart-right-area">
-                            <ul>
-                                <li>
-                                    <input type="radio" id="f-options" name="selector">
-                                    <label for="f-options">Direct Bank Transfer</label>
-
-                                    <div class="check"></div>
-                                </li>
-                            </ul>
-                            <p class="disc mb--25">
-                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-                            </p>
-                            <ul>
-                                <li>
-                                    <input type="radio" id="f-option" name="selector">
-                                    <label for="f-option">Check Payments</label>
-
-                                    <div class="check"></div>
-                                </li>
-
-                                <li>
-                                    <input type="radio" id="s-option" name="selector">
-                                    <label for="s-option">Cash On Delivery</label>
-
-                                    <div class="check">
-                                        <div class="inside"></div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <input type="radio" id="t-option" name="selector">
-                                    <label for="t-option">Paypal</label>
-
-                                    <div class="check">
-                                        <div class="inside"></div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <p class="mb--20">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
-                            <div class="single-category mb--30">
-                                <input id="cat14" type="checkbox">
-                                <label for="cat14"> I have read and agree terms and conditions *
-                                </label>
-                            </div>
-                            <a href="#" class="rts-btn btn-primary">Place Order</a>
-                        </div>
                     </div>
+
+                    {{-- ADD NEW ADDRESS BUTTON --}}
+                    <button class="premium-btn-sm" data-bs-toggle="collapse" data-bs-target="#addAddressCollapse">
+                        + Add New Address
+                    </button>
+
+                    <div class="collapse mt-3" id="addAddressCollapse">
+                        @include('checkout.partials.add_address_form')
+                    </div>
+
+                @endif
+
+            </div>
+
+
+            {{-- =============================
+                PAYMENT SECTION
+            ============================== --}}
+            @if(!$addresses->isEmpty())
+            <div class="premium-card mb-4">
+                <h4 class="premium-title mb-3">Payment Method</h4>
+
+                <div class="payment-options">
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" form="placeOrderForm"
+                               value="cod" checked hidden>
+                        <div class="payment-card">
+                            <i class="fa-solid fa-truck"></i>
+                            Cash on Delivery (COD)
+                        </div>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" form="placeOrderForm"
+                               value="card" hidden>
+                        <div class="payment-card">
+                            <i class="fa-solid fa-credit-card"></i>
+                            Credit / Debit Card
+                        </div>
+                    </label>
+
                 </div>
             </div>
+            @endif
+
         </div>
+
+
+
+        {{-- =============================
+            RIGHT COLUMN — ORDER SUMMARY
+        ============================== --}}
+        <div class="col-lg-4">
+
+            <form id="placeOrderForm"
+                  action="{{ route('checkout.place') }}"
+                  method="POST">
+                @csrf
+
+                <div class="premium-card sticky-top">
+
+                    <h4 class="premium-title mb-3">Order Summary</h4>
+
+                    @foreach($cart as $item)
+                    <div class="cart-item mb-3">
+                        <img src="{{ asset('storage/' . ($item->product->primaryImage->path ?? $item->product->images->first()->path)) }}"
+                             class="cart-thumb" alt="product">
+
+                        <div class="cart-info">
+                            <div class="cart-name">{{ $item->product->name }}</div>
+                            <div class="cart-meta">
+                                Qty: {{ $item->quantity }}
+                            </div>
+                        </div>
+
+                        <div class="cart-price">
+                            BHD {{ number_format($item->total_price,2) }}
+                        </div>
+                    </div>
+                    @endforeach
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Subtotal</span>
+                        <strong>BHD {{ number_format($cart->sum('total_price'),2) }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Shipping</span>
+                        <strong>Free</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Total</span>
+                        <strong class="text-primary">
+                            BHD {{ number_format($cart->sum('total_price'),2) }}
+                        </strong>
+                    </div>
+
+                    @if(!$addresses->isEmpty())
+                    <button class="premium-btn-primary w-100">
+                        Place Order
+                    </button>
+                    @else
+                    <button class="premium-btn-primary w-100" disabled>
+                        Add Address To Continue
+                    </button>
+                    @endif
+
+                </div>
+            </form>
+
+        </div>
+
     </div>
+</div>
+
+
+
+{{-- =============================
+    STYLING (Premium)
+============================= --}}
+@push('styles')
+<style>
+
+.checkout-container { margin-top: 30px; }
+
+.address-card {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: .25s;
+    background: #fff;
+}
+.address-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.address-radio:checked + .address-card,
+.payment-option input:checked + .payment-card {
+    border-color: var(--primary);
+    background: #fff9ec;
+}
+
+.address-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.payment-card {
+    border: 2px solid #ddd;
+    padding: 12px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: .25s;
+}
+.payment-card:hover {
+    border-color: var(--primary);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.cart-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.cart-name { font-size: 14px; font-weight: 600; }
+.cart-meta { font-size: 13px; color: #999; }
+.cart-price { font-weight: 700; }
+</style>
+@endpush
+
 @endsection

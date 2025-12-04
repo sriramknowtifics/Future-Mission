@@ -57,13 +57,15 @@
                         <i class="fa-solid fa-calendar-check me-2"></i> My Bookings
                     </button>
 
-                    <button class="nav-link">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-orders">
                         <i class="fa-solid fa-box-open me-2"></i> Orders
                     </button>
 
-                    <button class="nav-link">
+
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-address">
                         <i class="fa-solid fa-location-dot me-2"></i> Address
                     </button>
+
 
                     <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-account-details">
                         <i class="fa-solid fa-user-gear me-2"></i> Account Details
@@ -251,6 +253,13 @@
                     <div class="tab-pane fade" id="v-pills-account-details">
                         @include('account.account_details')
                     </div>
+                    <div class="tab-pane fade" id="v-pills-address">
+                        @include('account.address')
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-orders">
+                        @include('account.orders.index')
+                    </div>
+
 
 
                 </div>
@@ -407,6 +416,55 @@
     font-weight: 700;
     color: var(--dark);
 }
+
+/* ---- FIX SIDEBAR ALIGNMENT (RESPONSIVE) ---- */
+
+/* MOBILE: sidebar centered (default) */
+.premium-side-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* centered on small screens */
+    gap: 8px;
+}
+
+/* Every nav link left-aligned */
+.premium-side-nav .nav-link {
+    text-align: left;
+    width: 100%;
+}
+
+/* DESKTOP: stick to the left, add margin-left */
+@media (min-width: 992px) {
+
+    .premium-side-nav {
+        align-items: flex-start !important; /* left aligned */
+        margin-left: 15%;                   /* default */
+        position: sticky;
+        top: 100px;
+        width: 230px;
+    }
+
+    /* Column wrapper adjustments */
+    .account-tab-area-start .col-lg-3 {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        display: block !important;
+    }
+
+    /* Content spacing */
+    .account-tab-area-start .col-lg-9 {
+        padding-left: 40px !important;
+    }
+}
+
+/* EXTRA: Very large screens → add margin-left for balance */
+@media (min-width: 1400px) {
+    .premium-side-nav {
+        margin-left: 20px !important;  /* adjust as you prefer */
+    }
+}
+
 </style>
 @endpush
 

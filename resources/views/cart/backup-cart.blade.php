@@ -32,7 +32,11 @@
                 </label>
 
                 <div class="cart-top-actions">
-                   
+                    <form class="coupon-form" onsubmit="return false;">
+                        <input type="text" placeholder="Coupon code" class="coupon-input">
+                        <button class="btn-main">Apply</button>
+                    </form>
+
                     <form action="{{ route('cart.clear') }}" method="POST">
                         @csrf @method('DELETE')
                         <button class="btn-main btn-danger">Clear All</button>
@@ -133,18 +137,11 @@
                     <strong id="sum-subtotal">BHD {{ number_format($total,3) }}</strong>
                 </div>
 
-                <!-- MOVED COUPON FIELD HERE -->
-                <div class="summary-coupon">
-                    <input type="text" placeholder="Coupon code" class="coupon-input">
-                    <button class="btn-main coupon-apply">Apply Coupon</button>
-                </div>
-
                 <p class="sum-note">Final shipping & taxes calculated at checkout.</p>
 
                 <a href="{{ route('checkout.index') }}" class="btn-main full">Proceed to Checkout</a>
             </div>
         </aside>
-
 
     </div>
 
@@ -153,9 +150,9 @@
 
 @push('styles')
 <style>
-/* ============================================================
-   BUTTON SYSTEM (Custom lightweight — No rts-btn conflict)
-   ============================================================ */
+  /* ---------------------------------------
+   BUTTON SYSTEM (custom, NOT rts-btn)
+---------------------------------------- */
 .btn-main {
     background: linear-gradient(135deg, #ffa200, #ff7a00);
     color: #fff !important;
@@ -167,21 +164,16 @@
     cursor: pointer;
     transition: .25s;
     box-shadow: 0 6px 16px rgba(255,122,0,0.22);
-    width: fit-content;
-    max-width: 100%;
-    text-align: center;
 }
 .btn-main:hover {
     transform: translateY(-2px);
     background: linear-gradient(135deg, #ff9500, #ff6300);
 }
-.btn-danger {
-    background:#dc2626 !important;
-}
+.btn-danger { background:#dc2626 !important; }
 
-/* ============================================================
+/* ---------------------------------------
    PAGE STRUCTURE
-   ============================================================ */
+---------------------------------------- */
 .cart-container { margin-top:28px; }
 
 .cart-title {
@@ -191,9 +183,9 @@
     margin-bottom:20px;
 }
 
-/* ============================================================
-   EMPTY CART BOX
-   ============================================================ */
+/* ---------------------------------------
+   EMPTY STATE
+---------------------------------------- */
 .cart-empty-box {
     text-align:center;
     padding:40px 20px;
@@ -202,21 +194,21 @@
 }
 .empty-cart-img { width:240px; }
 
-/* ============================================================
-   GRID LAYOUT 
-   ============================================================ */
+/* ---------------------------------------
+   GRID LAYOUT
+---------------------------------------- */
 .cart-grid {
     display:grid;
     grid-template-columns: 1fr 340px;
     gap:30px;
 }
-@media (max-width:900px){
+@media(max-width:900px){
     .cart-grid { grid-template-columns: 1fr; }
 }
 
-/* ============================================================
-   TOP BAR (Select all + Clear + Coupon)
-   ============================================================ */
+/* ---------------------------------------
+   CART LEFT PANEL
+---------------------------------------- */
 .cart-topbar {
     display:flex;
     justify-content:space-between;
@@ -224,13 +216,9 @@
     margin-bottom:18px;
     gap:12px;
 }
-.cart-top-actions {
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
+.cart-top-actions { display:flex; gap:10px; flex-wrap:wrap; }
 
-/* Coupon input */
+/* coupon field */
 .coupon-input {
     padding:10px 14px;
     border-radius:14px;
@@ -238,47 +226,29 @@
     outline:none;
 }
 
-/* ============================================================
-   CHECKBOX (Premium enhanced)
-   ============================================================ */
+/* ---------------------------------------
+   ENHANCED CHECKBOX
+---------------------------------------- */
 .check-enhanced {
     display:flex;
     align-items:center;
     gap:8px;
     cursor:pointer;
-    position:relative;
 }
-.check-enhanced input {
-    position:absolute;
-    opacity:0;
-    width:20px;
-    height:20px;
-    cursor:pointer;
-}
+.check-enhanced input { opacity:0; position:absolute; }
 .check-enhanced .checkmark {
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
     border-radius:6px;
     border:2px solid #ffa200;
-    display:inline-block;
-    position:relative;
 }
 .check-enhanced input:checked + .checkmark {
-    background: #ffa200;
-}
-.check-enhanced input:checked + .checkmark::after {
-    content: "✔";
-    position:absolute;
-    color:#fff;
-    font-size:14px;
-    font-weight:900;
-    left:3px;
-    top:-2px;
+    background:#ffa200;
 }
 
-/* ============================================================
-   CART ITEM (Glass Card)
-   ============================================================ */
+/* ---------------------------------------
+   CART ITEM (Glassy card)
+---------------------------------------- */
 .card-glass {
     background:rgba(255,255,255,0.38);
     border-radius:20px;
@@ -299,117 +269,92 @@
     .card-glass { grid-template-columns: 1fr; }
 }
 
-/* LEFT BLOCK */
-.ci-left {
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+/* LEFT INFO */
+.ci-left { display:flex; align-items:center; gap:12px; }
+
 .ci-thumb {
-    width:70px;
-    height:70px;
+    width:70px; height:70px;
     background:#fff;
     border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:flex; align-items:center; justify-content:center;
     overflow:hidden;
 }
-.ci-thumb img {
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-.ci-meta h4 {
-    margin:0;
-    font-size:15px;
-    font-weight:700;
-}
-.sku {
-    color:#64748b;
-    font-size:12px;
-}
+.ci-thumb img { width:100%; height:100%; object-fit:contain; }
+
+.ci-meta h4 { margin:0; font-size:15px; font-weight:700; }
+.sku { color:#64748b; font-size:12px; }
 
 /* REMOVE BUTTON */
 .trash-btn {
     background:none;
     border:none;
-    color:#dc2626;
     font-size:20px;
+    color:#dc2626;
     cursor:pointer;
 }
-.trash-btn:hover {
-    color:#b91c1c;
-}
+.trash-btn:hover { color:#b91c1c; }
 
-/* ============================================================
-   PRICE / QTY / SUBTOTAL
-   ============================================================ */
+/* ---------------------------------------
+   PRICE, QTY, SUBTOTAL
+---------------------------------------- */
 .ci-price label,
 .ci-qty label,
-.ci-sub label {
+.ci-sub label{
     font-size:12px;
     color:#6b7280;
     margin-bottom:4px;
     display:block;
 }
 
-/* Quantity box */
+/* quantity box */
 .qty-box {
     display:flex;
     align-items:center;
     background:#fff;
     border:1px solid #e2e8f0;
     border-radius:12px;
-    width:70%;
 }
 .qty-box button {
-    width:34%;
-    height:34%;
+    width:34px;
+    height:34px;
     font-size:20px;
     background:#fff;
     border:none;
     cursor:pointer;
 }
 .qty-input {
-    width:60%;
+    width:60px;
     border:none;
     text-align:center;
     font-size:16px;
     font-weight:700;
 }
 
-/* Save button */
+/* save btn */
 .qty-save {
     margin-top:6px;
-    padding:8px 12px;
-    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-    border-radius:10px;
+    padding:6px 12px;
+    background:#16a34a;
+    border-radius:8px;
     color:#fff;
     border:none;
-    width:70%;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:.3px;
 }
 
-/* ============================================================
-   ORDER SUMMARY (Right side)
-   ============================================================ */
-.cart-right {
-    height:fit-content;
-}
+/* ---------------------------------------
+   RIGHT SUMMARY BOX
+---------------------------------------- */
+.cart-right { height:fit-content; }
 
 .summary-box {
     background:#fff;
-    padding:28px;
-    border-radius:24px;
+    padding:22px;
+    border-radius:20px;
     border:1px solid #eee;
     box-shadow:0 10px 32px rgba(0,0,0,0.06);
 }
 
 .summary-box h3 {
-    margin-bottom:20px;
+    margin:0 0 14px 0;
     font-size:20px;
     font-weight:800;
 }
@@ -417,55 +362,122 @@
 .sum-row {
     display:flex;
     justify-content:space-between;
-    margin-bottom:14px;
+    margin-bottom:10px;
 }
 
 .sum-note {
-    font-size:13px;
     color:#64748b;
-    margin:16px 0;
+    font-size:13px;
+    margin: 10px 0 18px 0;
 }
 
-/* Coupon inside summary */
-.summary-coupon {
-    margin:20px 0;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-.summary-coupon .coupon-input {
-    width:100%;
-    padding:12px 14px;
-    border-radius:14px;
-    border:1px solid #ddd;
-}
-.coupon-apply {
-    width:100%;
+.full { width:100%; text-align:center; display:block; }
+
+/* ---------------------------------------
+   BUTTON RESPONSIVENESS
+---------------------------------------- */
+
+.btn-main {
+    width: auto;
+    max-width: 100%;
+    white-space: nowrap;
 }
 
-/* Checkout button */
-.full {
-    width:100%;
-    padding:16px;
-    border-radius:12px;
-    font-size:17px;
-    display:block;
-    text-align:center;
-}
-
-@media(max-width:520px){
+@media (max-width: 520px) {
     .btn-main {
-        width:100% !important;
-        padding:14px 20px;
-        font-size:16px;
+        width: 100%;
+        text-align: center;
+        padding: 14px 18px;
+        font-size: 15px;
     }
+
     .qty-save {
-        padding:10px;
-        font-size:15px;
+        width: 100%;
+        font-size: 14px;
+        padding: 8px 14px;
     }
 }
 
-</style>
+/* Improve Save button style */
+.qty-save {
+    font-weight: 700 !important;
+    letter-spacing: 0.3px;
+}
+
+/* ---------------------------------------
+   ORDER SUMMARY – increase height/spacing
+---------------------------------------- */
+
+.summary-box {
+    padding: 28px;
+    border-radius: 24px;
+}
+
+.summary-box h3 {
+    margin-bottom: 20px;
+}
+
+.sum-row {
+    margin-bottom: 14px;
+}
+
+/* ---------------------------------------
+   ENHANCED CHECKBOX (Tick Visible)
+---------------------------------------- */
+
+.check-enhanced {
+    position: relative;
+}
+
+.check-enhanced input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.check-enhanced .checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid #ffa200;
+    position: relative;
+    display: inline-block;
+}
+
+.check-enhanced input:checked + .checkmark {
+    background: #ffa200;
+}
+
+.check-enhanced input:checked + .checkmark::after {
+    content: "✔";
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    left: 3px;
+    top: -2px;
+}
+
+/* ---------------------------------------
+   CART RIGHT BUTTON RESPONSIVE
+---------------------------------------- */
+.full {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+@media (max-width: 520px) {
+    .full {
+        padding: 16px;
+        font-size: 17px;
+    }
+}
+
+    </style>
 @endpush
 @push('scripts')
 <script>

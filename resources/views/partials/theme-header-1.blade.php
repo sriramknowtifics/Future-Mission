@@ -1,26 +1,29 @@
-@php
-use App\Models\CartItem;
+  @php
+    // Grab cart from session (array or collection). Use empty array if absent.
+    $cart = session('cart', []);
 
-// Fetch all active cart items for logged-in user
-$cartItems = auth()->check()
-    ? CartItem::with('product.images')
-        ->where('user_id', auth()->id())
-        ->where('status', 'active')
-        ->get()
-    : collect([]);
+    // Normalize cart to array to avoid object/collection surprises
+    if ($cart instanceof \Illuminate\Support\Collection) {
+        $cart = $cart->toArray();
+    }
 
-// Count total items
-$cartCount = $cartItems->sum('quantity');
+    // Compute totals safely using data_get (works with arrays & objects)
+    $cartCount = 0;
+    $cartSubtotal = 0.0;
 
-// Calculate subtotal
-$cartSubtotal = $cartItems->sum(function ($item) {
-    return ($item->price ?? 0) * ($item->quantity ?? 1);
-});
+    foreach ($cart as $key => $item) {
+        // quantity fallback: 'quantity' -> 'qty' -> 1
+        $qty = (int) data_get($item, 'quantity', data_get($item, 'qty', 1));
+        $cartCount += $qty;
 
-// Format subtotal
-$cartSubtotalFormatted = number_format($cartSubtotal, 2);
+        // price fallback: 'price' -> 'amount' -> 0
+        $price = (float) data_get($item, 'price', data_get($item, 'amount', 0));
+        $cartSubtotal += ($price * $qty);
+    }
+
+    // Human readable subtotal
+    $cartSubtotalFormatted = number_format($cartSubtotal, 2);
 @endphp
-
 
 <div class="rts-header-one-area-one">
           <div class="header-top-area">
@@ -43,7 +46,7 @@ $cartSubtotalFormatted = number_format($cartSubtotal, 2);
             </div>
             <div class="contact-number-area">
               <p>Need help? Call Us:
-                <a href="tel:+258326821485">+973 35549994</a>
+                <a href="tel:+258326821485">+258 3268 21485</a>
               </p>
             </div>
           </div>
@@ -190,7 +193,54 @@ $cartSubtotalFormatted = number_format($cartSubtotal, 2);
                 <i class="fa-sharp fa-regular fa-cart-shopping"></i>
                 <span class="text">My Cart</span>
                 <span class="number">{{ $cartCount }}</span>
-                
+
+                <div class="category-sub-menu card-number-show">
+                  <h5 class="shopping-cart-number">Shopping Cart ({{ $cartCount }})</h5>
+                  @if (session('cart') && count(session('cart')) > 0)
+                    @foreach (session('cart') as $id => $item)
+                      <div class="cart-item-1 {{ $loop->first ? 'border-top' : '' }}">
+                        <div class="img-name">
+                          <div class="thumbanil">
+                            <img src="{{ $item['image'] ?? asset('assets/images/placeholder.png') }}" alt="{{ $item['name'] }}">
+                          </div>
+                          <div class="details">
+                            <a href="#">
+                              <h5 class="title">{{ $item['name'] }}</h5>
+                            </a>
+                            <div class="number">
+                              {{ $item['quantity'] ?? 1 }} <i class="fa-regular fa-x"></i>
+                              <span>₹{{ number_format($item['price'], 2) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="close-c1">
+                          <a href="{{ route('cart.remove', $id) }}"><i class="fa-regular fa-x"></i></a>
+                        </div>
+                      </div>
+                    @endforeach
+
+                    <div class="sub-total-cart-balance">
+                      <div class="bottom-content-deals mt--10">
+                        <div class="top">
+                          <span>Sub Total:</span>
+                          <span class="number-c">₹{{ $cartSubtotalFormatted }}</span>
+                        </div>
+                        <div class="single-progress-area-incard">
+                          <div class="progress">
+                            <div class="progress-bar wow fadeInLeft" role="progressbar" style="width:  aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                        <p>Spend More <span></span> to reach <span>Free Shipping</span></p>
+                      </div>
+                      <div class="button-wrapper d-flex align-items-center justify-content-between">
+                        <a href="{{ route('cart.index') }}" class="rts-btn btn-primary">View Cart</a>
+                        <a href="{{ route('checkout.index') }}" class="rts-btn btn-primary border-only">CheckOut</a>
+                      </div>
+                    </div>
+                  @else
+                    <p class="text-center py-4">Your cart is empty</p>
+                  @endif
+                </div>
                 <a href="{{ route('cart.index') }}" class="over_link"></a>
               </div>
             </div>
@@ -237,7 +287,7 @@ $cartSubtotalFormatted = number_format($cartSubtotal, 2);
                     <!-- Contact -->
                     <li class="parent">
                       <a class="{{ request()->routeIs('contact') ? 'active' : '' }}"
-                        href="{{route('contact')}}">Contact</a>
+                        href="#">Contact</a>
                     </li>
 
               
@@ -454,7 +504,7 @@ $cartSubtotalFormatted = number_format($cartSubtotal, 2);
                                 </li>
                       
                                 <li>
-                                    <a href="{{route('contact')}}" class="main">Contact Us</a>
+                                    <a href="#" class="main">Contact Us</a>
                                 </li>
                             </ul>
                         </nav>

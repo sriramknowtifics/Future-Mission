@@ -23,15 +23,18 @@ class Customer extends Model
         'notes',
     ];
 
-    protected $casts = [
-        'notes' => 'string',
-    ];
-
-    /**
-     * Relationship: Customer belongs to a User
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
+
+    public function defaultAddress()
+    {
+        return $this->hasOne(CustomerAddress::class)->where('is_default', true);
     }
 }
