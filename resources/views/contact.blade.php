@@ -82,7 +82,7 @@
                     <h3 class="section-title" style="margin-top: 25px;">Business Hours</h3>
 
                     <ul class="hours-list">
-                        <li><strong>Mondays–Friday:</strong> 8:00 AM – 6:00 PM</li>
+                        <li><strong>Monday–Friday:</strong> 8:00 AM – 6:00 PM</li>
                         <li><strong>Saturday:</strong> 9:00 AM – 5:00 PM</li>
                         <li><strong>Sunday:</strong> Closed</li>
                     </ul>
